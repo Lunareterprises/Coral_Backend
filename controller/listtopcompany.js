@@ -2,14 +2,19 @@ var model = require('../model/listtopcompany')
 
 module.exports.ListTopcompany = async (req, res) => {
     try {
-        
-        let { tc_id } = req.body
-        let condition =''
+
+        let { tc_id, filter, hgfs } = req.body
+        var condition = ''
         if (tc_id) {
             condition = ` where tc_id ='${tc_id}'`
-            
         }
-              
+        if (filter) {
+            condition = ` where tc_name LIKE '%${filter}%' `
+        }
+        if (hgfs) {
+            condition = ` ORDER BY tc_growth_percentage DESC `
+        }
+
         let data = await model.ListTopcompanyquery(condition)
 
         if (data.length > 0) {

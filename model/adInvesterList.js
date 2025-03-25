@@ -39,3 +39,10 @@ module.exports.GetInvesterUser = async (condition) => {
     return data;
 };
 
+
+module.exports.GetSAllUsers = async () => {
+    var Query = `SELECT us.u_id,us.u_name, us.u_email, us.u_mobile, us.u_status,us.u_kyc,us.u_joining_date,us.u_easy_pin,us.u_joining_date ,ua.*
+                FROM users us LEFT JOIN user_apps ua ON us.u_id = ua.user_apps_user_id `;
+    var data = await query(Query);
+    return data;
+};

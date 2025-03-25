@@ -38,6 +38,9 @@ module.exports.InvestersList = async (req, res) => {
 
         var investeruserData = await model.GetInvesterUser(condition)
 
+        var allusersData = await model.GetSAllUsers()
+
+
         if (investersData.length > 0) {
 
 
@@ -48,7 +51,7 @@ module.exports.InvestersList = async (req, res) => {
                 var path1 = `${process.cwd()}/uploads/contractspdf`;
                 var path = `${process.cwd()}/uploads/contractspdf/coral_${today}.pdf`;
                 if (!fs.existsSync(path1)) {
-                    fs.mkdirSync(path1, 0777, true);
+                    fs.mkdirSync(path1, true);
                 }
                 var datahtml = ''
                 for (let data of investersData) {
@@ -192,6 +195,7 @@ module.exports.InvestersList = async (req, res) => {
                 message: "data retrieved successfully",
                 investerusers: investeruserData,
                 data: investersData,
+                users: allusersData
             })
         } else {
             return res.send({
