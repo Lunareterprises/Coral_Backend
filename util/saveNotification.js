@@ -1,0 +1,21 @@
+const Notification = require('../model/SaveNotification');
+const UserToken = require('../model/getUserTokens')
+
+
+module.exports.addNotification = async (userId, userRole, type, message) => {
+    try {
+        let notification = await Notification.createNotification(userId, userRole, type, message);
+        return notification.affectedRows > 0 ? true : false;
+    } catch (error) {
+        console.log(error.message);
+        return false
+    }
+}
+
+module.exports.getUserTokens = async (userId) => {
+    try {
+        return await UserToken.getUserToken(userId)
+    } catch (error) {
+        return false
+    }
+}
