@@ -1,6 +1,6 @@
 const userModel = require('../model/users')
 const Stripe = require('stripe');
-const stripe = Stripe('sk_test_51QTPFIFEOzMlpKTYdMFvHKBbgmNmRuoqrvqkCkHhShpP92RVtGHGG99uHeqxKouLD3FKvPMbhwfHJpKXTRkw44DK00HCUeC1DZ');
+const stripe = Stripe(process.env.STRIPE_SECRET);
 
 
 module.exports.createClientSecret = async (req, res) => {
