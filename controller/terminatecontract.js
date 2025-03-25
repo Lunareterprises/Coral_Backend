@@ -1,4 +1,5 @@
 var model = require('../model/terminatecontract')
+let ticketModel=require('../model/ticket')
 var nodemailer = require('nodemailer')
 let notification = require('../util/saveNotification')
 
@@ -24,6 +25,7 @@ module.exports.TerminateContract = async (req, res) => {
             })
         }
         let terminate = await model.updateContract(ui_id, reason)
+        let ticket=await ticketModel.createTicket(ui_id,"Requested for terminate contract","Terminate contract")
         if (terminate.affectedRows > 0) {
             let transporter = nodemailer.createTransport({
                 host: "smtp.hostinger.com",

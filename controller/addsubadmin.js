@@ -14,7 +14,7 @@ module.exports.AddSubAdmin = async (req, res) => {
                     result: false,
                     message: "File Upload Failed!",
                     data: err,
-                }); 
+                });
             }
 
             let user_id = req.user.admin_id
@@ -24,7 +24,7 @@ module.exports.AddSubAdmin = async (req, res) => {
             console.log(user_id, admin_role, "lllll");
 
 
-            let { name, email, mobile, password, role } = fields
+            let { name, email, mobile, password, role, } = fields
 
             if (!name || !email || !mobile || !password || !role) {
                 return res.send({

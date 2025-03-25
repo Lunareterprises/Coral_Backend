@@ -8,17 +8,14 @@ module.exports.getAdmin = async (user_id, admin_role) => {
     return data;
 };
 
-
-module.exports.GetUserWithdraw = async (condition) => {
-    var Query = `SELECT wr.*,b.*, 
-    us.u_id, 
-    us.u_name, 
-    us.u_email, 
-    us.u_mobile, 
-    us.u_status FROM withdraw_request wr
-    LEFT JOIN users us ON wr.wr_u_id = us.u_id
-    LEFT JOIN bank b ON b.b_u_id = wr.wr_u_id where wr.wr_action_status ='active' ${condition}`;
+module.exports.getusers = async () => {
+    var Query = `select * from users `;
     var data = await query(Query);
     return data;
-}
+};
 
+module.exports.getInvestment = async () => {
+    var Query = `select * from user_invest `;
+    var data = await query(Query);
+    return data;
+};

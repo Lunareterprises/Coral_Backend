@@ -1,4 +1,5 @@
 var model = require('../model/contracttransfer')
+let ticketModel = require('../model/ticket')
 var nodemailer = require('nodemailer')
 let notification = require('../util/saveNotification')
 
@@ -34,6 +35,7 @@ module.exports.ContractTransfer = async (req, res) => {
         }
 
         let update = await model.requestTransfer(ui_id, n_id)
+        let ticket = await ticketModel.createTicket(user_id, "Requested for transfer contract", "Transfer contract")
         let users = await model.getUser(user_id)
         if (update.affectedRows > 0) {
             let transporter = nodemailer.createTransport({
@@ -95,7 +97,7 @@ module.exports.ContractTransfer = async (req, res) => {
             });
 
             nodemailer.getTestMessageUrl(info);
-            await notification.addNotification(user_id,users[0].u_role, 'Investment Transfer', 'Your investment has been successfully transferred to nominee')
+            await notification.addNotification(user_id, users[0].u_role, 'Investment Transfer', 'Your investment has been successfully transferred to nominee')
             return res.send({
                 result: true,
                 message: "assgined to nominee successfully"
