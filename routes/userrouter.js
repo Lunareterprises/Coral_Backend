@@ -125,6 +125,9 @@ route.get('/cwiInvestments', require('../controller/cwiInvestmentsList').cwiInve
 
 route.get('/futureInvestments', require('../controller/futureInvestmentsList').FutureInvestmentList)
 
+route.post('/ticket/create',require('../controller/ticket').CreateTicket)
+
+route.get('/ticket/list',require('../controller/ticket').ListTickets)
 
 
 
