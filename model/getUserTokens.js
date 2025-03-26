@@ -7,3 +7,7 @@ module.exports.getUserToken = async (user_id) => {
     var data = await query(Query, [user_id]);
     return data;
 };
+
+module.exports.getAdminTokens=async()=>{
+    
+}
