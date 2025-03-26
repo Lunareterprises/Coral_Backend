@@ -1,7 +1,7 @@
 var model = require('../model/ticket')
 let userModel = require('../model/users')
 let notification = require('../util/saveNotification')
-let admin=require('../util/firebaseConfig')
+let { admin } = require('../util/firebaseConfig')
 
 module.exports.CreateTicket = async (req, res) => {
     try {
@@ -24,7 +24,7 @@ module.exports.CreateTicket = async (req, res) => {
         if (ticket.affectedRows > 0) {
 
             //////HERE THE CODE FOR SENDING PUSH NOTIFICATION TO ADMINS////
-            
+
             await notification.addNotification(user_id, userData[0].u_role, `Ticket for ${category}`, `Your ${purpose} has been send to the admin!.`)
             return res.send({
                 result: true,
@@ -144,16 +144,16 @@ module.exports.DeleteTicket = async (req, res) => {
                 message: "Ticket id is required"
             })
         }
-        let deletedData=await model.deleteTicket(ticket_id,user_id)
-        if(deletedData.affectedRows>0){
+        let deletedData = await model.deleteTicket(ticket_id, user_id)
+        if (deletedData.affectedRows > 0) {
             return res.send({
-                result:true,
-                message:"Deleted ticket successfully"
+                result: true,
+                message: "Deleted ticket successfully"
             })
-        }else{
+        } else {
             return res.send({
-                result:false,
-                message:"Failed to delete ticket"
+                result: false,
+                message: "Failed to delete ticket"
             })
         }
     } catch (error) {
