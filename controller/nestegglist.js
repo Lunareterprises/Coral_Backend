@@ -23,7 +23,7 @@ module.exports.NestEggList = async (req, res) => {
             result: true,
             message: "data retrieved",
             balance: balance[0]?.u_wallet,
-            profit: profit,
+            profit: profit || 0,
             data: data
         })
         // if (data.length > 0) {
