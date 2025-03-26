@@ -14,6 +14,12 @@ module.exports.AddOrder = async (req, res) => {
         var date = moment().format("YYYY-MM-DD")
         var moddate = moment().format("DD_MM_YYYY")
         let { user_id } = req.headers
+        if(!user_id){
+            return res.send({
+                result:false,
+                message:"User id is required"
+            })
+        }
         let { investment, securityOption, clientInfo, bankAccount, nomineeDetails } = req.body
         // if(!investment.project_name){
         //     return res.send({

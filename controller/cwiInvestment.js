@@ -71,6 +71,12 @@ module.exports.cwiInvestment = async (req, res) => {
             }
         }
         var userdetails = await userModel.getUser(user_id)
+        if(userdetails[0].u_kyc!=="verified"){
+            return res.send({
+                result:false,
+                message:"KYC needs to be verified before investing"
+            })
+        }
         let usernme = userdetails[0]?.u_name.toUpperCase().substring(0, 3)
         // let savedetails = await model.AddInvest()
         var path1 = `${process.cwd()}/uploads/agreement/`;

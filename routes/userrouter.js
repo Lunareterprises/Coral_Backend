@@ -125,11 +125,15 @@ route.get('/cwiInvestments', require('../controller/cwiInvestmentsList').cwiInve
 
 route.get('/futureInvestments', require('../controller/futureInvestmentsList').FutureInvestmentList)
 
-route.post('/ticket/create',require('../controller/ticket').CreateTicket)
+route.post('/ticket/create', require('../controller/ticket').CreateTicket)
 
-route.get('/ticket/list',require('../controller/ticket').ListTickets)
+route.get('/ticket/list', require('../controller/ticket').ListTickets)
 
-route.post('/google/login',require('../controller/GoogleAuth').GoogleLogin)
+route.put('/ticket/edit', require('../controller/ticket').EditTicket)
+
+route.delete('/ticket/delete', require('../controller/ticket').DeleteTicket)
+
+route.post('/google/login', require('../controller/GoogleAuth').GoogleLogin)
 
 
 /// Payment Routes

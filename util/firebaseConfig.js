@@ -31,4 +31,10 @@ module.exports.SendMessage = async (userId, type, message) => {
     }
 }
 
+
+/////HERE THE FUNCTION TO SEND NOTIFICATION TO ADMINS////
+module.exports.sendNotificationToAdmins=async()=>{
+    
+}
+
 module.exports=admin
