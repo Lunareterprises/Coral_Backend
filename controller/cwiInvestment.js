@@ -5,6 +5,7 @@ let userModel = require('../model/users')
 var fs = require('fs');
 const notification = require('../util/saveNotification');
 const { createPdfWithPuppeteer } = require('../util/pdfGeneration');
+const { SendMessage, sendNotificationToAdmins } = require('../util/firebaseConfig')
 
 
 module.exports.cwiInvestment = async (req, res) => {
@@ -71,10 +72,10 @@ module.exports.cwiInvestment = async (req, res) => {
             }
         }
         var userdetails = await userModel.getUser(user_id)
-        if(userdetails[0].u_kyc!=="verified"){
+        if (userdetails[0].u_kyc !== "verified") {
             return res.send({
-                result:false,
-                message:"KYC needs to be verified before investing"
+                result: false,
+                message: "KYC needs to be verified before investing"
             })
         }
         let usernme = userdetails[0]?.u_name.toUpperCase().substring(0, 3)
@@ -1393,7 +1394,8 @@ module.exports.cwiInvestment = async (req, res) => {
         </html>`
         var saveInvest = await orderModel.AddInvest(user_id, date, investment_duration, investment_amount, percentage, return_amount, profit_model, securityOption, project_name, withdrawal_frequency, bankaccount[0].b_id)
         var pdf = await createPdfWithPuppeteer(html, path);
-        await SendMessage(user_id, "'CWI Investment'", "CWI Investment added successfully.!")
+        await SendMessage(user_id, "CWI Investment", "CWI Investment added successfully.!")
+        await sendNotificationToAdmins("CWI Investment", `${userdetails[0].u_name} requested to invest in CWI Investment`)
         await notification.addNotification(user_id, userdetails[0].u_role, 'CWI Investment', 'CWI Investment added successfully')
         return res.send({
             result: true,

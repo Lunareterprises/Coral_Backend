@@ -5,6 +5,7 @@ var puppeteer = require('puppeteer');
 var fs = require('fs');
 const { createPdfWithPuppeteer } = require('../util/pdfGeneration');
 const notification = require('../util/saveNotification');
+const { sendNotificationToAdmins } = require('../util/firebaseConfig');
 
 
 module.exports.AddOrder = async (req, res) => {
@@ -1446,6 +1447,7 @@ module.exports.AddOrder = async (req, res) => {
         // var save = await model.getBankaccount(bankAccount)
         var saveInvest = await model.AddInvest(user_id, date, investment_duration, investment_amount, percentage, return_amount, profit_model, securityOption, project_name, withdrawal_frequency, bankAccount)
         var pdf = await createPdfWithPuppeteer(html, path);
+        await sendNotificationToAdmins("investment", `${userdetails[0].u_name} requested to invest`)
         await notification.addNotification(user_id, userdetails[0].u_role, 'Investment', 'Investment added successfully')
         return res.send({
             result: true,
