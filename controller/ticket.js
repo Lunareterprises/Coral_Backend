@@ -1,7 +1,7 @@
 var model = require('../model/ticket')
 let userModel = require('../model/users')
 let notification = require('../util/saveNotification')
-let { admin } = require('../util/firebaseConfig')
+let { sendNotificationToAdmins } = require('../util/firebaseConfig')
 
 module.exports.CreateTicket = async (req, res) => {
     try {
@@ -12,20 +12,19 @@ module.exports.CreateTicket = async (req, res) => {
                 message: "User id is required"
             })
         }
-        let { purpose, category } = req.body
-        if (!purpose || !category) {
-            return res.send({ result: false, message: "Please fill all the fields" })
+        let { category } = req.body
+        if (!category) {
+            return res.send({ result: false, message: "Category is required" })
         }
         let userData = await userModel.getUser(user_id)
         if (userData.length == 0) {
             return res.send({ result: false, message: "User not found" })
         }
-        let ticket = await model.createTicket(user_id, purpose, category)
+        let ticket = await model.createTicket(user_id, `Requested to ${category}`, category)
         if (ticket.affectedRows > 0) {
-
-            //////HERE THE CODE FOR SENDING PUSH NOTIFICATION TO ADMINS////
-
-            await notification.addNotification(user_id, userData[0].u_role, `Ticket for ${category}`, `Your ${purpose} has been send to the admin!.`)
+            let userName = userData[0]?.u_name
+            await sendNotificationToAdmins(category, `${userName} requested to ${category}`)
+            await notification.addNotification(user_id, userData[0].u_role, `Ticket for ${category}`, `Your requested to ${category} has been send to the admin!.`)
             return res.send({
                 result: true,
                 message: "Ticket created successfully"

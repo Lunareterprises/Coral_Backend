@@ -45,8 +45,27 @@ module.exports.SendMessage = async (userId, type, message) => {
 
 
 /////HERE THE FUNCTION TO SEND NOTIFICATION TO ADMINS////
-module.exports.sendNotificationToAdmins = async () => {
-
+module.exports.sendNotificationToAdmins = async (type, message) => {
+    try {
+        let adminTokens = await Notification.getAdminTokens()
+        adminTokens.forEach(async (el) => {
+            const payload = {
+                token: el.fcm_token,
+                notification: {
+                    title: type, // Title of the notification
+                    body: message,             // Body/content of the notification
+                },
+            }
+            try {
+                let response = await admin.messaging().send(payload)
+                console.log("response : ", response)
+            } catch (error) {
+                console.log("error : ", error.message)
+            }
+        })
+    } catch (error) {
+        return error
+    }
 }
 
 module.exports.admin = admin
