@@ -30,6 +30,8 @@ module.exports.NestEggList = async (req, res) => {
         } else {
             return res.send({
                 result: false,
+                balance: balance[0]?.u_wallet,
+                profit: profit || 0,
                 message: "data not found"
             })
         }
