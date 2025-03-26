@@ -129,6 +129,7 @@ route.post('/ticket/create',require('../controller/ticket').CreateTicket)
 
 route.get('/ticket/list',require('../controller/ticket').ListTickets)
 
+route.post('/google/login',require('../controller/GoogleAuth').GoogleLogin)
 
 
 /// Payment Routes
