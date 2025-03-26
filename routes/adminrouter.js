@@ -42,6 +42,10 @@ route.post('/dashboard', verifyToken, require('../controller/adDashboard').Dashb
 
 
 
+route.get('/ticket/list', verifyToken, require('../controller/adminTickets').ListAllTickets)
 
+route.get('/ticket/edit', verifyToken, require('../controller/adminTickets').EditTicket)
+
+route.delete('/ticket/delete', verifyToken, require('../controller/adminTickets').DeleteTicket)
 
 module.exports = route
