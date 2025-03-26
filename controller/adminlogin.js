@@ -15,12 +15,17 @@ module.exports.AdminLogin = async (req, res) => {
                 message: "insufficient parameters",
             });
         }
-
         var SECRET_KEY = process.env.JWT_SECRET_KEY
 
         var CheckUser = await model.CheckUserQuery(email);
         console.log(CheckUser, "eee");
 
+        if (CheckUser[0]?.u_status !== 'active') {
+            return res.send({
+                result: false,
+                message: "Your Access Denied,Please contact management",
+            });
+        }
         if (CheckUser.length > 0) {
             let Checkpassword = await bcrypt.compare(
                 password,

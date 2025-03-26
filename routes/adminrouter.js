@@ -6,6 +6,8 @@ route.post('/add/top-company', verifyToken, require('../controller/addtopcompany
 
 route.post('/list/top-company', verifyToken, require('../controller/listtopcompany').ListTopcompany)
 
+route.post('/edit/top-company', verifyToken, require('../controller/adEditTopcompany').EditTopCompany)
+
 route.post('/deletesection', verifyToken, require('../controller/admindeletesection').AdminDeleteSection)
 
 route.post('/login', require('../controller/adminlogin').AdminLogin)
@@ -24,7 +26,22 @@ route.post('/list/investers', verifyToken, require('../controller/adInvesterList
 
 route.post('/list/investers-bank', verifyToken, require('../controller/adInvesterbankdetails').InvesterBankDetails)
 
-// route.post('/list/wallet', verifyToken, require('../controller/adwalletlist').WalletList)
+route.post('/list/wallet', verifyToken, require('../controller/adwalletlist').WalletList)
+
+route.post('/update/status', verifyToken, require('../controller/adStatusChange').StatusChange)
+
+route.get('/list/nestegg', verifyToken, require('../controller/adNestEggList').NestEggList)
+
+route.post('/add/investment-calculator', verifyToken, require('../controller/adInvestmentCalculater').AddInvestmentCalculater)
+
+route.get('/list/investment-calculator', verifyToken, require('../controller/adListInvestmentCalculater').InvestmentCalculaterList)
+
+route.post('/list/history', verifyToken, require('../controller/adHistory').History)
+
+route.post('/dashboard', verifyToken, require('../controller/adDashboard').Dashboard)
+
+
+
 
 
 module.exports = route
