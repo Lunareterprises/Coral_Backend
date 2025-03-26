@@ -22,7 +22,7 @@ module.exports.NestEggList = async (req, res) => {
         return res.send({
             result: true,
             message: "data retrieved",
-            balance: balance[0]?.u_wallet,
+            balance: balance[0]?.u_wallet || 0,
             profit: profit || 0,
             data: data
         })
