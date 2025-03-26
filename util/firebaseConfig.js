@@ -30,3 +30,5 @@ module.exports.SendMessage = async (userId, type, message) => {
         return error
     }
 }
+
+module.exports=admin
