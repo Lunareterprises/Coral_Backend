@@ -5,7 +5,7 @@ module.exports.ListAllTickets = async (req, res) => {
     try {
         let { admin_id, role } = req.user
         let adminData = await adminModel.CheckAdmin(admin_id, role)
-        if (adminData.length == 0) {
+        if (adminData.length == 0||adminData[0]?.u_role == 'user') {
             return res.send({
                 result: false,
                 message: "Access Denied,try with authorized account"
@@ -40,7 +40,7 @@ module.exports.EditTicket = async (req, res) => {
     try {
         let { admin_id, role } = req.user
         let adminData = await adminModel.CheckAdmin(admin_id, role)
-        if (adminData.length == 0) {
+        if (adminData.length == 0||adminData[0]?.u_role == 'user') {
             return res.send({
                 result: false,
                 message: "Access Denied,try with authorized account"
@@ -77,7 +77,7 @@ module.exports.DeleteTicket = async (req, res) => {
     try {
         let { admin_id, role } = req.user
         let adminData = await adminModel.CheckAdmin(admin_id, role)
-        if (adminData.length == 0) {
+        if (adminData.length == 0||adminData[0]?.u_role == 'user') {
             return res.send({
                 result: false,
                 message: "Access Denied,try with authorized account"
